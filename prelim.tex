@@ -1,7 +1,7 @@
 \section{Preliminary} \label{sec:prelim}
 
 \subsection{STT-RAM Cell Basics}
-STT-RAM uses MTJ as the memory storage and leverages the difference in magnetic directions to represent the memory bit.  As shown in Fig.~\ref{fig:sttcell}, MTJ usually contains two ferromagnetic layers.  One ferromagnetic layer is has fixed magnetization direction and it is called the reference layer, while the other layer has a free magnetization direction that can be changed by passing a write current and it is called the free layer. The relative magnetization direction of two ferromagnetic layers determines the resistance of MTJ.  If two ferromagnetic layers have the parallel directions, the resistance of MTJ is low, indicating a ``1" state; if two layers have anti-parallel directions, the resistance of MTJ is high, indicating a ``0" state.
+STT-RAM uses MTJ as the memory storage and leverages the difference in magnetic directions to represent the memory bit.  As shown in Figure~\ref{fig:sttcell}, MTJ usually contains two ferromagnetic layers.  One ferromagnetic layer is has fixed magnetization direction and it is called the reference layer, while the other layer has a free magnetization direction that can be changed by passing a write current and it is called the free layer. The relative magnetization direction of two ferromagnetic layers determines the resistance of MTJ.  If two ferromagnetic layers have the parallel directions, the resistance of MTJ is low, indicating a ``1" state; if two layers have anti-parallel directions, the resistance of MTJ is high, indicating a ``0" state.
 
 As shown in Figure~\ref{fig:sttcell}, there are two possible schemes to stack MTJ atop access NMOS transistor. Conventionally, the free layer of MTJ is connected to bitline~(BJ). In that scheme, when writing ``1" state into STT-RAM cells, positive voltage difference is established between BL and SL and the switching current required is $I_{c}(AP\rightarrow P)$; when writing ``0" state, negative voltage difference is established between BL and SL and the switching current required is $I_{c}(P\rightarrow AP)$. While the reverse connection scheme was proposed in~\cite{STTRAM:Qualcomm09} where the free layer of MTJ is connected to the drain of NMOS instead of BL. \cite{STTRAM:Qualcomm09} argues that $I_{c}(P\rightarrow AP)$ is normally significantly larger than $I_{c}(AP\rightarrow P)$~\cite{STTRAM:APL05,STTRAM:PRB05} due to the inherent torque asymmetry of MTJ. But the SL-to-BL current is much smaller than the BL-to-SL current under the same wordline voltage and voltage difference between BL and SL because the body effect of access transistor degrades the SL-to-BL current remarkably. Thus reserving connection scheme can relax the sizing requirement on access transistor, which results in more compact STT-RAM cell size. However, device-level efforts have been put to improve the asymmetry of switching characteristic of MTJ and $I_{c}(AP\rightarrow P)$ slightly larger than $I_{c}(P\rightarrow AP)$ was even demonstrated in~\cite{STTRAM:Grandis07}. In our work, we always choose the MJT connection scheme that is responsible for relaxed sizing requirement on access transistor.
 
@@ -35,7 +35,7 @@ CTMR = \frac{R_{AP}-R_{P}}{R_{P}+R_{NMOS}} = \frac{R_{AP}-R_{P}}{R_{P}+\frac{C}{
 where $R_{NMOS}$ is the equvalent resistance of access NMOS transistor and $W$ is the transistor width, $C$ is a constant related to the wordline voltage and threshold voltage of the transistor. From equation~\ref{eqn:ctmr3} we can conclude that sizing up the access transistor will make CTMR close to the inherent TMR of MTJ.
 
 \subsection{Write current versus write pulse width trade-off}
-The current amplitude required to reverse the direction of the free ferromagnetic layer is determined by a lot of factors such as material property, device geometry and importantly the write pulse duration. Generally, the longer the write pulse is applied, the less the switching current is needed to switch the MTJ state. Three distinct switching modes were identified~\cite{STTRAM:JAP07} according to the operating range of switching pulse width $\tau$: thermal activation ($\tau>20ns$), processional switching ($\tau<3ns$) and dynamic reversal ($3ns<\tau<20ns$). 
+The current amplitude required to reverse the direction of the free ferromagnetic layer is determined by a lot of factors such as material property, device geometry and importantly the write pulse duration. Generally, the longer the write pulse is applied, the less the switching current is needed to switch the MTJ state. Three distinct switching modes were identified~\cite{STTRAM:JAP07} according to the operating range of switching pulse width $\tau$: thermal activation ($\tau>20ns$), processional switching ($\tau<3ns$) and dynamic reversal ($3ns<\tau<20ns$).
 
 \begin{figure}[t]
   \centering
@@ -48,8 +48,26 @@ The relationship between switching current current $J_{c}$ and write pulse width
 \begin{eqnarray}
 J_{c,TA}(\tau) &=& J_{c0}\{1- (\frac{k_{B}T}{E_{b}})ln(\frac{\tau}{\tau_{0}})\} \label{eqn:jcta} \\
 J_{c,PS}(\tau) &=& J_{c0}+ \frac{C}{\tau^{\gamma}} \label{eqn:jcps} \\
-J_{c,DR}(\tau) &=& \frac{J_{c,TA}(\tau)+J_{c,PS}(\tau)e^{-k(\tau - \tau_{c})}}{1+e^{-k(\tau - \tau_{c})}} \label{eqn:jcdr} 
-\end{eqnarray}  
+J_{c,DR}(\tau) &=& \frac{J_{c,TA}(\tau)+J_{c,PS}(\tau)e^{-k(\tau - \tau_{c})}}{1+e^{-k(\tau - \tau_{c})}} \label{eqn:jcdr}
+\end{eqnarray}
 where $J_{c,TA}$, $J_{c,PS}$, $J_{c,DR}$ are the switching current density for thermal activation, precessional switching and dynamic reversal. $J_{c0}$ is the critical switching current density. $k_{B}$ is the Boltzmann constant, $T$ is the temperature, $E_{b}$ is the thermal barrier, and $\tau_{0}$ is inverse of the attempt frequency. $C$, $\gamma$, $k$, and $\tau_{c}$ are fitting constants. Based on the observation from Figure~\ref{fig:IcWt} and analysis of the analytical model,  we found very different switching characteristics in the three switching modes. For example, in thermal activation mode, the required switching current decrease very slowly even we increase the write pulse width by orders of magnitude, thus short write pulse width is more favorable in this regime because reducing write pulse can reduce both write latency and energy without much penalty on read latency and energy. While in processional switching, write current goes up rapidly if we further reduce write pulse width, therefore minimum write energy of the MTJ is achieved at some particular write pulse width in this regime. Consequently, this paper will focus on the exploration of write pulse width in processional switching and dynamic reversal to optimize for different design goals.
 
 \subsection{Perpendicular MTJ}
+A key challenge for MTJ design is to reduce switching current while maintaining sufficient high thermal stability to not affect data retention time and write/read errors. The conventional in-plane MTJ critical switching current $I_{c0}$ divided by the thermal barrier $\Delta$ be expressed as~\cite{PMTJ:Grandis10},
+\begin{equation}
+\frac{I_{c0}}{\Delta} = \frac{\alpha}{\eta} \times (1+\frac{H_{d}}{2H_{k}})
+\label{inplaneic}
+\end{equation}
+where $\alpha$ is the damping constant, $\eta$ is the STT efficiency, $H_{d}$ is the out of plan anisotropy field, and $H_{k}$ is the in-plane anisotropy field most of which is from the shape anisotropy. The typical value of $H_{d}/2H_{k}$ is about 20-150~\cite{STTRAM:Review10A}. From equation~\ref{inplaneic} we can see that the magnetization has to overcome a very large out-of-plane demagnetizing field before it can switch to the opposite direction. However, only $H_{k}$ not $H_{d}$ will contribute to thermal stability~\cite{PMTJ:Grandis10}. Perpendicular MTJ were investigated as a promising solution~\cite{PMTJ:APL06,PMTJ:Grandis10,PMTJ:Toshiba08,PMTJ:Xiaochun06} as the critical switching current of PMTJ can be described as,
+\begin{equation}
+\frac{I_{c0}}{\Delta} = \frac{\alpha}{\eta} 
+\label{PMTJic}
+\end{equation}
+Therefore, PMTJ can have much smaller switching current than in-plane devices if the same ratio of $\alpha / \eta$ can be maintained. Indeed, very low switching current density of MTJ was demonstrated while maintaining high enough thermal stability factor~\cite{PMTJ:Toshiba08}. There are some issues to be solved for PMTJ such as degraded compatibility with CMOS process, larger damping constant, potential lattice mismatch for high TMR ratio and STT efficiency. In this paper, we take both the near-commercialized in-plane MTJ and advanced PMTJ as our optimization targets.
+
+
+
+
+
+
+
