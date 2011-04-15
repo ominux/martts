@@ -35,5 +35,21 @@ CTMR = \frac{R_{AP}-R_{P}}{R_{P}+R_{NMOS}} = \frac{R_{AP}-R_{P}}{R_{P}+\frac{C}{
 where $R_{NMOS}$ is the equvalent resistance of access NMOS transistor and $W$ is the transistor width, $C$ is a constant related to the wordline voltage and threshold voltage of the transistor. From equation~\ref{eqn:ctmr3} we can conclude that sizing up the access transistor will make CTMR close to the inherent TMR of MTJ.
 
 \subsection{Write current versus write pulse width trade-off}
-The current amplitude required to reverse the direction of the free ferromagnetic layer is determined by a lot of factors such as material property, device geometry and importantly the write pulse duration. Generally, the longer the write pulse is applied, the less the switching current is needed to switch the MTJ state. The operating range can be grouped into three different modes~\cite{STTRAM:JAP07} according to different switching pulse width: thermal activation ($\tau>20ns$), processional switching ($\tau<3ns$) and dynamic reversal ($3ns<\tau<20ns$). The three working modes have very different physical switching mechanism and their switching probabilities are determined by different condition. For example, thermal activation is largely affected by the temperature during switching regardless of initial temperature condition while processional switching has the opposite dependence on them. In thermal activation regime, write pulse width is exponentially proportional to write current reduction, which favors short write pulse width more because small penalty in write current can reduce write latency by orders of magnitude. However, in processional switching, write current will go up rapidly if we further decrease write pulse width. In that case, different optimization goals (latency, energy) will result in different operating point.
+The current amplitude required to reverse the direction of the free ferromagnetic layer is determined by a lot of factors such as material property, device geometry and importantly the write pulse duration. Generally, the longer the write pulse is applied, the less the switching current is needed to switch the MTJ state. Three distinct switching modes were identified~\cite{STTRAM:JAP07} according to the operating range of switching pulse width $\tau$: thermal activation ($\tau>20ns$), processional switching ($\tau<3ns$) and dynamic reversal ($3ns<\tau<20ns$). 
 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=3in]{fig/IcWt.eps}
+  \caption{Demonstration of three switching phases: thermal activation, dynamic reversal and precessional switching.}
+  \label{fig:IcWt}
+\end{figure}
+
+The relationship between switching current current $J_{c}$ and write pulse width $\tau$ was characterized by an analytical model in~\cite{STTRAM:IEDM09}. The equations are listed as follows,
+\begin{eqnarray}
+J_{c,TA}(\tau) &=& J_{c0}\{1- (\frac{k_{B}T}{E_{b}})ln(\frac{\tau}{\tau_{0}})\} \label{eqn:jcta} \\
+J_{c,PS}(\tau) &=& J_{c0}+ \frac{C}{\tau^{\gamma}} \label{eqn:jcps} \\
+J_{c,DR}(\tau) &=& \frac{J_{c,TA}(\tau)+J_{c,PS}(\tau)e^{-k(\tau - \tau_{c})}}{1+e^{-k(\tau - \tau_{c})}} \label{eqn:jcdr} 
+\end{eqnarray}  
+where $J_{c,TA}$, $J_{c,PS}$, $J_{c,DR}$ are the switching current density for thermal activation, precessional switching and dynamic reversal. $J_{c0}$ is the critical switching current density. $k_{B}$ is the Boltzmann constant, $T$ is the temperature, $E_{b}$ is the thermal barrier, and $\tau_{0}$ is inverse of the attempt frequency. $C$, $\gamma$, $k$, and $\tau_{c}$ are fitting constants. Based on the observation from Figure~\ref{fig:IcWt} and analysis of the analytical model,  we found very different switching characteristics in the three switching modes. For example, in thermal activation mode, the required switching current decrease very slowly even we increase the write pulse width by orders of magnitude, thus short write pulse width is more favorable in this regime because reducing write pulse can reduce both write latency and energy without much penalty on read latency and energy. While in processional switching, write current goes up rapidly if we further reduce write pulse width, therefore minimum write energy of the MTJ is achieved at some particular write pulse width in this regime. Consequently, this paper will focus on the exploration of write pulse width in processional switching and dynamic reversal to optimize for different design goals.
+
+\subsection{Perpendicular MTJ}
