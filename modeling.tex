@@ -25,7 +25,7 @@ The relationship between access transistor width and CTMR defined in Section~\re
 \begin{equation}
 CTMR(W_{CTMR}) \geq CTMR_{min}
 \end{equation}
-Finally we will choose a transistor width $W$ which satisfy all the above requirements, 
+Finally we will choose a transistor width $W$ which satisfy all the above requirements,
 \begin{equation}
 W = max(W_{BS}, W_{SB}, W_{CTMR}) \label{equ:width}
 \end{equation}
@@ -48,8 +48,13 @@ Three sensing modes were proposed in~\cite{CACTI:DATE11:Xu} to sense resistance-
 \subsection{Cell Switching Modeling}
 Dynamic MTJ switching model was developed in~\cite{STTRAM:Purdue10} with consideration of the switching phenomenon involves magnetoresistive effects, which can not estimated only by RC analysis.  However, this work is focusing on static analysis of STT-RAM and NVSim does not model the dynamic behavior during the switching of the cell state. Thus we use simply calculate switching energy (i.e. cell write energy) by using Joule's first law that is,
 \begin{equation}
-\mathrm{Energy}_{\mathrm{cell_switching}} = I_{c}^2 R \tau
+\mathrm{Energy}_{\mathrm{cell_switching}} = I_{c}^2 R \tau \label{equ:cellenergy}
 \end{equation}
-in which the resistance value $R$ can be the equivalent resistance of the corresponding LRS or HRS (i.e. $R_{P}$ or $R_{AP}$).
+in which the resistance value $R$ can be the equivalent resistance of the corresponding LRS or HRS (i.e. $R_{P}$ or $R_{AP}$). Taking the switching current versus switching pulse width as input for Equation~\ref{equ:cellenergy}, we can easily get the relation between the energy of switching one cell and write pulse width. It can been seen in Figure~\ref{fig:cellenergy}, minimum switching energy per cell is achieved at write pulse width $\tau_{min_cell_energy}$ in the range of processional switching mode. However, the the optimal operating write pulse width from cell-level point of view is not necessarily the best operating point from system-level point of view because the effect of access transistor and peripheral circuitry have not been considered.
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=2.5in]{fig/cellenergy.eps}
+  \caption{Switching energy per cell versus write pulse width.}
+  \label{fig:cellenergy}
+\end{figure}
 
- 
