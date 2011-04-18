@@ -6,8 +6,10 @@ In this section we first choose two MTJ specs as our optimization targets. After
 \begin{figure}[t]
   \centering
   \includegraphics[width=3.5in]{fig/MTJSpec.eps}
+  \vspace{-10pt}
   \caption{Representative data curves of in-plane and perpendicular MTJs: (a)Switching current; (b) Cell switching energy.}
   \label{fig:specs}
+  \vspace{-15pt}
 \end{figure}
 
 As discussed in Section~\ref{subsec:ict}, a wide range of coupled switching current and switching time can be operated for STT-RAM cell. In this work, we will focus on processional switching mode and dynamic reversal mode, particularly, for $0.4ns < \tau < 10ns$. We choose two curves which can represent the typical switching characteristics of in-plane MTJ~\cite{STTRAM:Qualcomm09} and PMTJ~\cite{PMTJ:Toshiba08}. As seen in Figure~\ref{fig:specs}, PMTJ has remarkable advantages over in-plane MTJ in both switching current and switching energy for any given write pulse width assuming the same ratio of damping constant to STT efficiency. The other simulation parameters are listed in~\ref{tb:parameters}. We assume the same TMR and resistance for in-plane MTJ and PMTJ. For PMTJ, realization of matching these parameters of in-plane MTJ needs some device-level efforts as mentioned in Section~\ref{subsec:pmtj}. The minimum write pulse width $\tau_{min\_cell\_energy}$ for each MTJ spec is are extracted from Figure~\ref{fig:specs}(b). Allowed maximum access transistor width is constrained, which has been translated to the operating range of write pulse width.
@@ -65,8 +67,10 @@ In previous section we note that $\tau_{min\_energy}$ is different for STT-RAM w
 \begin{figure}[t]
   \centering
   \includegraphics[width=3.5in]{fig/MinEnergy.eps}
+  \vspace{-10pt}
   \caption{Dependence of $\tau_{min\_energy}$ on (a) STT-RAM Macro Capacity, and (b) I/O Width}
   \label{fig:minenergy}
+  \vspace{-15pt}
 \end{figure}
 
 \subsection{Device-Architecture Co-Optimization}
@@ -107,7 +111,7 @@ Output buffer type & Area opt. & Latency opt. & Latency opt. & Area opt. & Area 
 \hline\hline
 \end{tabular}
 %\vspace{-10pt}
-\end{table*} 
+\end{table*}
 
 Finally we combine the write pulse width optimization together with other circuit- and architectural- level techniques to design a $64MB$ STT-RAM prototype with 64-bit I/O width under $45nm$ technology node using PMTJ. These optimization choices include: (1) Insert repeaters in interconnection wire to reduce routing delay at the penalty of area and energy; (2) Use partial swing signal for data transfer to reduce energy at the penalty of latency; (3) External sensing scheme with Non-H-Tree routing to reduce chip area; (4) Different buffer design styles for area optimization or latency optimization; (5) Differen sensing schemes for trade-off of area, latency and energy. Table~\ref{tb:bigtable} tabulates the full design spectrum this chip by listing the details of each design corner.
 
