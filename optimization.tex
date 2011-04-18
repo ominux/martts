@@ -1,9 +1,5 @@
 \section{STT-RAM Macro Design Optimization} \label{sec:opt}
-<<<<<<< .mine
-In this section we first choose two MTJ specifications as our optimization targets. After numerous simulations we the importance of careful write pulse width selection is revealed for optimizing area, read latency/energy, write latency/enery and leakage power of STT-RAM. Then we will focus on the analysis of write energy optimization, which is both device and capacity dependent. Finally we will combine the improved architectural design together with the write pulse width optimization to illustrate a full design explore a STT-RAM chip.
-=======
 In this section we first choose two MTJ species as our optimization targets. After numerous simulations the importance of careful write pulse width selection is revealed for optimizing area, read latency/energy, write latency/enery and leakage power of STT-RAM. Then we will focus on the analysis of write energy optimization, which is both device and architecture dependent. Finally we will combine the improved architectural design together with the write pulse width optimization to explore a full design space for a $64MB$ STT-RAM chip.
->>>>>>> .r41
 
 \subsection{Impact of Write Pulse Width}
 
@@ -66,11 +62,9 @@ NVsim simulation results of $2MB$ STT-RAM macros with in-plane MTJ and PMTJ are 
 \end{figure*}
 
 \subsection{Write Energy Optimization}
-<<<<<<< .mine
-In previous section we note that $\tau_{min\_energy}$ is different for STT-RAM with in-plane MTJ and PMTJ. Thus we did more study on the determining factors and found out $\tau_{min\_energy}$ depends on MTJ spec, STT-RAM capacity and I/O width. From the results shown in Figure~\ref{fig:minenergy}, we observed that: (1) The optimal write pulse width $\tau_{min\_energy}$ for STT-RAM with in-plane MTJ is smaller than that of STT-RAM with PMTJ under the same capacity and I/O Width; (2) $\tau_{min\_energy}$ is a monotonic increasing function of STT-RAM capacity under fixed I/O width (32bits); (3) $\tau_{min\_energy}$ is a monotonic decreasing function of I/O width under fixed capacity (2MB). There are primary two reasons: (1) the baseline $\tau_{min\_cell\_energy}$ of in-plane MTJ than that of PMTJ; the proportion of cell energy in PMTJ is much smaller and peripheral energy has more weights on minimizing total energy. (2) the proportion of cell energy decreases as capacity increases and peripheral energy begins to decimate at large memory capacity. (3) is due to the similar reason. The conclusions can be viewed as design implications of MTJ device, that is, minimize the cell switching energy at $\tau_{min\_cell\_energy}$ from cell-level may not enough, while it's more important to reduce to cell switching energy at $\tau_{min\_energy}$ for particular capacity and I/O width from system-level point of view.
-=======
+
 In previous section we note that $\tau_{min\_energy}$ is different for STT-RAM with in-plane MTJ and PMTJ. Thus we did more study on the determining factors and found out $\tau_{min\_energy}$ depends on MTJ species, STT-RAM capacity and I/O width. From the results shown in Fig.~\ref{fig:minenergy}, we observed that: (1) The optimal write pulse width $\tau_{min\_energy}$ for STT-RAM with in-plane MTJ is smaller than that of STT-RAM with PMTJ under the same capacity and I/O Width; (2) $\tau_{min\_energy}$ is a monotonic increasing function of STT-RAM capacity under fixed I/O width; (3) $\tau_{min\_energy}$ is a monotonic decreasing function of I/O width under fixed capacity. There are primary two reasons for (1): the baseline $\tau_{min\_cell\_energy}$ of in-plane MTJ than that of PMTJ; proportion of cell energy in PMTJ is much smaller and peripheral energy has more weights on minimizing total energy. (2) is because the proportion of cell energy decreases as capacity increases and peripheral energy begins to decimate at large memory capacity. (3) is due to the similar reason. The conclusions can be viewed as design implications of MTJ device, that is, minimizing the cell switching energy at $\tau_{min\_cell\_energy}$ from cell-level may not be enough, while it's more important to reduce to cell switching energy at $\tau_{min\_energy}$ for particular capacity and I/O width from system-level point of view.
->>>>>>> .r41
+
 
 \begin{figure}[t]
   \centering
