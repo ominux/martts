@@ -2,7 +2,7 @@
 Some modeling issues will be discussed in this section.
 
 \subsection{Area Modeling}
-To simulate the performance of a single STT-RAM cell, it is important to estimate its access area first. As mentioned before, each 1T1J STT-RAM cell is composed of one NMOS and one MTJ. The NMOS access device is connected in series with the MTJ as shown in Figure~\ref{fig:1t1r}. The size of NMOS is constrained by both $I_{c}(AP\rightarrow P)$ and $I_{c}(P\rightarrow AP)$, which are inversely proportional to the writing pulse width. In order to estimate the current driving ability of MOSFET devices, a small test circuit using HSPICE with PTM 45nm HP model~\cite{PTM} is simulated. The BL-to-SL current and SL-to-BL current are obtained by assuming typical TMR (120\%) and LRS ($3k\Omega$) value~\cite{STTRAM:Qualcomm09} and bursting wordline voltage to be 1.5V (the optimal $V_{WL}$ value is extracted from~\cite{STTRAM:Gatech10}). As we can see in Figure~\ref{fig:icw}, the SL-to-BL current is always smaller and saturate faster than BL-to-SL current. Such current degradation is related to the body effect of the access transistor, where the threshold voltage is boosted by a positive source-to-substrate voltage different $V_{SB}=I_{c}\times R$ ($I_{c}$ is the current passing through MTJ and $R$ is the resistance of the MTJ). Thus we always choose the connecting scheme which use BL-to-SL current to match the maximum of $I_{c}(AP\rightarrow P)$ and $I_{c}(P\rightarrow AP)$ and SL-to-BL to match the minimum of them. The corresponding access transistor width must satisfy the following conditions,
+To simulate the performance of a single STT-RAM cell, it is important to estimate its access area first. As mentioned before, each 1T1J STT-RAM cell is composed of one NMOS and one MTJ. The NMOS access device is connected in series with the MTJ as shown in Figure~\ref{fig:1t1r}. The size of NMOS is constrained by both $I_{c}(AP\rightarrow P)$ and $I_{c}(P\rightarrow AP)$, which are inversely proportional to the writing pulse width. In order to estimate the current driving ability of MOSFET devices, a small test circuit using HSPICE with PTM 45nm HP model~\cite{PTM} is simulated. The BL-to-SL current and SL-to-BL current are obtained by assuming typical TMR (120\%) and LRS ($3k\Omega$) value~\cite{STTRAM:Qualcomm09} and bursting wordline voltage to be 1.5V (the optimal $V_{WL}$ value is extracted from~\cite{STTRAM:Gatech10}). As we can see in Figure~\ref{fig:hspice}(a), the SL-to-BL current is always smaller and saturate faster than BL-to-SL current. Such current degradation is related to the body effect of the access transistor, where the threshold voltage is boosted by a positive source-to-substrate voltage different $V_{SB}=I_{c}\times R$ ($I_{c}$ is the current passing through MTJ and $R$ is the resistance of the MTJ). Thus we always choose the connecting scheme which use BL-to-SL current to match the maximum of $I_{c}(AP\rightarrow P)$ and $I_{c}(P\rightarrow AP)$ and SL-to-BL to match the minimum of them. The corresponding access transistor width must satisfy the following conditions,
 \begin{eqnarray}
 I_{BS}(W_{BS}) &\geq& max(I_{c}(AP\rightarrow P), I_{c}(P\rightarrow AP)) \\
 I_{SB}(W_{SB}) &\geq& min(I_{c}(AP\rightarrow P), I_{c}(P\rightarrow AP))
@@ -15,14 +15,15 @@ where $I_{BS}(W_{BS})$ is the current from BL to SL with transistor width $W_{BS
   \caption{Conceptual view of a MOS-accessed cell (1T1J) and its connected word line, bit line, and source line.}
   \label{fig:1t1r}
 \end{figure}
+
 \begin{figure}[t]
   \centering
-  \includegraphics[width=2.5in]{fig/IC_W.eps}
-  \caption{Driving ability of 45nm NMOS access transistor.}
-  \label{fig:icw}
+  \includegraphics[width=3.5in]{fig/HSPICE.eps}
+  \caption{(a)Driving ability, and (b) Cell TMR of access NMOS transistor.}
+  \label{fig:hspice}
 \end{figure}
 
-The relationship between access transistor width and CTMR defined in Section~\ref{subsec:cell} was also simulated. As can be seen in Figure~{fig:cmtrw}, a larger access transistor increase CTRM closer to the inherent TRM value of MTJ. It's necessary to set a lower bound $CTMR_{min}$ for CTMR to guarantee the correctness of read operation. Thus the transistor width must be large enough to satisfy the minimum CTMR requirement,
+The relationship between access transistor width and CTMR defined in Section~\ref{subsec:cell} was also simulated. As can be seen in Figure~{fig:hspice}(b), a larger access transistor increase CTRM closer to the inherent TRM value of MTJ. It's necessary to set a lower bound $CTMR_{min}$ for CTMR to guarantee the correctness of read operation. Thus the transistor width must be large enough to satisfy the minimum CTMR requirement,
 \begin{equation}
 CTMR(W_{CTMR}) \geq CTMR_{min}
 \end{equation}
@@ -30,13 +31,6 @@ Finally we will choose a transistor width $W$ which satisfy all the above requir
 \begin{equation}
 W = max(W_{BS}, W_{SB}, W_{CTMR}) \label{equ:width}
 \end{equation}
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=2.6in]{fig/CMTR_W.eps}
-  \caption{Cell MTR versus transistor width.}
-  \label{fig:cmtrw}
-\end{figure}
 
 To achieve high cell density, we model the STT-RAM cell area by referring to DRAM design rules~\cite{DRAM:6F2}.  As a result, the cell size of a STT-RAM cell is calculated as follows,
 \begin{equation}
