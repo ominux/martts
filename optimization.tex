@@ -70,7 +70,6 @@ In previous section we note that $\tau_{min\_energy}$ is different for STT-RAM w
 \end{figure}
 
 \subsection{Device-Architecture Co-Optimization}
-Finally we combine 
 
 \begin{table*}[t]
 %\vspace{-5pt}
@@ -109,3 +108,6 @@ Output buffer type & Area opt. & Latency opt. & Latency opt. & Area opt. & Area 
 \end{tabular}
 %\vspace{-10pt}
 \end{table*} 
+
+Finally we combine the write pulse width optimization together with other circuit- and architectural- level techniques to design a $64MB$ STT-RAM prototype with 64-bit I/O width under $45nm$ technology node using PMTJ. These optimization choices include: (1) Insert repeaters in interconnection wire to reduce routing delay at the penalty of area and energy; (2) Use partial swing signal for data transfer to reduce energy at the penalty of latency; (3) External sensing scheme with Non-H-Tree routing to reduce chip area; (4) Different buffer design styles for area optimization or latency optimization; (5) Differen sensing schemes for trade-off of area, latency and energy. Table~\ref{tb:bigtable} tabulates the full design spectrum this chip by listing the details of each design corner.
+
