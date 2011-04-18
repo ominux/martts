@@ -78,40 +78,40 @@ In previous section we note that $\tau_{min\_energy}$ is different for STT-RAM w
 \begin{table*}[t]
 %\vspace{-5pt}
 \centering
-\caption{Device-Architecture Co-Optimization of a 45nm 64MB STT-RAM chip}
+\caption{Device-Architecture Co-Optimization of a 45nm 64MB STT-RAM chip and comparison with DRAM}
 \label{tb:bigtable}
 %\vspace{-5pt}
-\begin{tabular}{| l | c | c | c | c | c | c |}
+\begin{tabular}{| l | c | c | c | c | c | c | c |}
 \hline\hline
-& Area opt. & Read latency opt. & Write latency opt. & Read energy opt. & Write energy opt. & Leakage opt. \\
+& Area opt. & Read latency opt. & Write latency opt. & Read energy opt. & Write energy opt. & Leakage opt. &  DRAM \\
 \hline
-Area ($mm^2$) & \textbf{3.06} & 10.7 & 16.4 & 5.66 & 6.22 & 3.63 \\
+Area ($mm^2$) & \textbf{3.06} & 10.7 & 16.4 & 5.66 & 6.22 & 3.63 & 8.55\\
 \hline
-Read latency ($ns$) & 21.8 & \textbf{3.70} & 4.92 & 9.12 & 9.57 &	9.91 \\
+Read latency ($ns$) & 21.8 & \textbf{3.70} & 4.92 & 9.12 & 9.57 & 9.91 & 6.24\\
 \hline
-Write latency ($ns$) & 18.6	& 13.9	& \textbf{4.01}	& 15.9	& 12.3	& 18.1 \\
+Write latency ($ns$) & 18.6	& 13.9	& \textbf{4.01}	& 15.9	& 12.3	& 18.1 & 6.24\\
 \hline
-Read energy ($nJ$) & 0.276	& 0.225	& 0.316	& \textbf{0.105}	& 0.139	& 0.279 \\
+Read energy ($nJ$) & 0.276	& 0.225	& 0.316	& \textbf{0.105}	& 0.139	& 0.279 & 5.21\\
 \hline
-Write energy ($nJ$) & 0.293	& 0.322	& 0.309	& 0.193	& \textbf{0.131}	& 0.281\\
+Write energy ($nJ$) & 0.293	& 0.322	& 0.309	& 0.193	& \textbf{0.131}	& 0.281 & 4.82\\
 \hline
-Leakage ($W$) & 1.01	& 3.53	& 4.98	& 1.85	& 1.92	& \textbf{0.78}\\
+Leakage ($W$) & 1.01	& 3.53	& 4.98	& 1.85	& 1.92	& \textbf{0.78} & 1.83\\
 \hline\hline
-Write pulse width ($ns$) & 10 & 10 & 2 & 10 & 6 & 10 \\
+Write pulse width ($ns$) & 10 & 10 & 2 & 10 & 6 & 10 & - \\
 \hline
-Inter-array routing & Non-H-tree & H-tree & H-tree & H-tree & H-tree & Non-H-tree \\
+Inter-array routing & Non-H-tree & H-tree & H-tree & H-tree & H-tree & Non-H-tree & H-tree \\
 \hline
-Sense amp placement & External & Internal & Internal & Internal & Internal & External \\
+Sense amp placement & External & Internal & Internal & Internal & Internal & External & Internal \\
 \hline
-Sense amp type & Current-in voltage & Current & Current & Voltage-divider & Voltage-divider & Voltage-divider \\
+Sense amp type & Current & Current & Current & Voltage & Voltage & Voltage & Voltage \\
 \hline
-Interconnect wire & Normal & Repeated & Repeated & Low-swing & Low-swing & Normal \\
+Interconnect wire & Normal & Repeated & Repeated & Low-swing & Low-swing & Normal & Repeated \\
 \hline
-Output buffer type & Area opt. & Latency opt. & Latency opt. & Area opt. & Area opt. & Area opt. \\
+Output buffer type & Area opt. & Latency opt. & Latency opt. & Area opt. & Area opt. & Area opt. & Latency opt. \\
 \hline\hline
 \end{tabular}
 %\vspace{-10pt}
 \end{table*}
 
-Finally we combine the write pulse width optimization together with other circuit- and architectural- level techniques to design a $64MB$ STT-RAM prototype with 64-bit I/O width under $45nm$ technology node using PMTJ. These optimization choices include: (1) Insert repeaters in interconnection wire to reduce routing delay at the penalty of area and energy; (2) Use partial swing signal for data transfer to reduce energy at the penalty of latency; (3) External sensing scheme with Non-H-Tree routing to reduce chip area; (4) Different buffer design styles for area optimization or latency optimization; (5) Differen sensing schemes for trade-off of area, latency and energy. Table~\ref{tb:bigtable} tabulates the full design spectrum this chip by listing the details of each design corner.
+Finally we combine the write pulse width optimization together with other circuit- and architectural- level techniques to design a $64MB$ STT-RAM prototype with 64-bit I/O width under $45nm$ technology node using PMTJ. These optimization choices include: (1) Insert repeaters in interconnection wire to reduce routing delay at the penalty of area and energy; (2) Use partial swing signal for data transfer to reduce energy at the penalty of latency; (3) External sensing scheme with Non-H-Tree routing to reduce chip area; (4) Different buffer design styles for area optimization or latency optimization; (5) Differen sensing schemes for trade-off of area, latency and energy. Table~\ref{tb:bigtable} tabulates the full design spectrum this chip by listing the details of each design corner. Compared the metrics of STT-RAM chip to those of DRAM in the rightmost column, we can see that replacing DRAM by STT-RAM can greatly reduce energy while maintaining performance competitive to DRAM. This is primarily because of elimination of refresh operation due to inherent non-volatility of STT-RAM.
 
