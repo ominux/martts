@@ -12,17 +12,6 @@ In this section we first choose two MTJ specs as our optimization targets. After
 
 As discussed in Section~\ref{subsec:ict}, a wide range of coupled switching current and switching time can be operated for STT-RAM cell. In this work, we will focus on processional switching mode and dynamic reversal mode, particularly, for $0.4ns < \tau < 10ns$. We choose two curves which can represent the typical switching characteristics of in-plane MTJ~\cite{STTRAM:Qualcomm09} and PMTJ~\cite{PMTJ:Toshiba08}. As seen in Figure~\ref{fig:specs}, PMTJ has remarkable advantages over in-plane MTJ in both switching current and switching energy for any given write pulse width assuming the same ratio of damping constant to STT efficiency. The other simulation parameters are listed in~\ref{tb:parameters}. We assume the same TMR and resistance for in-plane MTJ and PMTJ. For PMTJ, realization of matching these parameters of in-plane MTJ needs some device-level efforts as mentioned in Section~\ref{subsec:pmtj}. The minimum write pulse width $\tau_{min\_cell\_energy}$ for each MTJ spec is are extracted from Figure~\ref{fig:specs}(b). Allowed maximum access transistor width is constrained, which has been translated to the operating range of write pulse width.
 
-NVsim simulation results of 2$MB$ STT-RAM macros with in-plane MTJ and PMTJ separately are compared with SRAM of the same capacity. Different impacts of write pulse width on area, read latency/energy, write latency/energy and leakage power are demonstrated in Figure~\ref{fig:metrics}. In general, decreasing write pulse width will increase area, read latency/energy and leakage power. Especially reducing write pulse with in processional mode will harm these metrics badly. However, the relation between write pulse width and write latency/enery is not monotonous. Separate explanations and result analysis are given,
-\begin{itemize}
-\item Area: short write pulse induced large switching current requires large access transistor for providing enough driving current, which incur both cell and peripheral circuitry (i.e. wordline driver) area penalty. From Figure~\ref{fig:metrics}(a) we can see that STT-RAM generally has area advantage over SRAM. But reducing write pulse aggressively below $2ns$ will cause STT-RAM with in-plane MTJ to have larger area than SRAM.
-\item Read latency: the read timing can be approximately divided into four components: (1) H-tree input/output delay; (2) Decoder + wordline delay; (3) Bitline delay; (4) Sense amplifier delay. (1) is affected because larger area essentially means longer routing distance and interconnection RC delay. Moreover, the increased gate and drain capacitance of larger access transistor will contribute to wordline capacitance and bitline load capacitance, which increase (2) and (3). From Figure~\ref{fig:metrics}(b) we can see that STT-RAM with in-plane MTJ is slightly slower than SRAM mainly because sensing the state of STT-RAM cell takes longer than that of SRAM. However, read operation of STT-RAM with PMTJ can be faster than SRAM for $\tau > 0.8ns$ due to more remarkable area advantage. 
-\item Read energy: it's affected in the similar way that read latency is affected. From Figure~\ref{fig:metrics}(c) we can see that the read energy of STT-RAM with in-plane MTJ is comparable to that of SRAM while PMTJ improves STT-RAM read energy significantly thus it's better than SRAM.
-\item Write latency: the write timing can be approximately divided into four components: (1) H-tree input latency; (2) Decoder + wordline delay; (3) Write pulse width. (1) and (2) both increase as (3) decreases therefore "sweet spots" may exist, which is approved by Figure~\ref{fig:metrics}(d). The write latency of STT-RAM with in-plane MTJ can no longer be improved when $\tau < 3ns$. While the minimum write latency STT-RAM with PMTJ is achieved at $\tau = 0.8ns$ and the latency value is comparable to SRAM.
-\item Write energy: it consists of two parts: the energy of cell switching and the energy of the circuitry most of which is shared with read operation. When reducing write pulse width from $10ns$ to $\tau_{min\_cell\_energy}$, cell switching energy decreases while the other energy goes up in the same manner with read energy. Later we'll show that the optimal write pulse width for minimum write energy is a function of both MTJ spec and STT-RAM capacity, which is defined $\tau_{min\_energy}(\text{MTJ Spec}, Capacity)$. We can see from Figure~\ref{fig:metrics}(e) that $\tau_{min\_energy}(\text{in-plane MTJ}, 2MB) = 5ns$ and $\tau_{min\_energy}(\text{PMTJ}, 2MB) = 7ns$. Moreover, the minimum write energy of STT-RAM with in-plane MTJ is roughly 50\% more than that of SRAM while the energy of STT-RAM with PMTJ is almost half the number of SRAM.
-\item Leakage power: leakage power is basically proportional to the sizing of transistor contributing the leakage current. Thus it's increases as the area of peripheral circuity increase because the leakage power for STT-RAM mainly comes from peripheral circuity. Figure~\ref{fig:metrics}(f) we can tell the remarkable advantage of STT-RAM over SRAM no matter what type of MTJ spec is used.
-\end{itemize} 
-
-
 \begin{table}[t]
 \centering
 \caption{Simulation Parameters}
@@ -38,17 +27,30 @@ $\tau_{min\_cell\_energy}$ & $1.8ns$ & $1.5ns$\\
 \hline
 TMR & \multicolumn{2}{c}{$120\%$}\\
 \hline
-LRS resistance & \multicolumn{2}{c}{$3k\Omega$}\\
+LRS Resistance & \multicolumn{2}{c}{$3k\Omega$}\\
 \hline
 $CTMR_{min}$ & \multicolumn{2}{c}{$60\%$} \\
 \hline
 Macro Capacity & \multicolumn{2}{c}{$16KB - 4MB$}\\
 \hline
-I/O Width & \multicolumn{2}{c}{32bits}\\
+Technology Node & \multicolumn{2}{c}{$45ns$}\\
+\hline
+I/O Width & \multicolumn{2}{c}{$32bits-512bits$}\\
 \hline\hline
 \end{tabular}
 \vspace{-10pt}
-\end{table}    
+\end{table}
+
+NVsim simulation results of 2$MB$ STT-RAM macros with in-plane MTJ and PMTJ separately are compared with SRAM of the same capacity. Different impacts of write pulse width on area, read latency/energy, write latency/energy and leakage power are demonstrated in Figure~\ref{fig:metrics}. In general, decreasing write pulse width will increase area, read latency/energy and leakage power. Especially reducing write pulse with in processional mode will harm these metrics badly. However, the relation between write pulse width and write latency/enery is not monotonous. Separate explanations and result analysis are given,
+\begin{itemize}
+\item Area: short write pulse induced large switching current requires large access transistor for providing enough driving current, which incur both cell and peripheral circuitry (i.e. wordline driver) area penalty. From Figure~\ref{fig:metrics}(a) we can see that STT-RAM generally has area advantage over SRAM. But reducing write pulse aggressively below $2ns$ will cause STT-RAM with in-plane MTJ to have larger area than SRAM.
+\item Read latency: the read timing can be approximately divided into four components: (1) H-tree input/output delay; (2) Decoder + wordline delay; (3) Bitline delay; (4) Sense amplifier delay. (1) is affected because larger area essentially means longer routing distance and interconnection RC delay. Moreover, the increased gate and drain capacitance of larger access transistor will contribute to wordline capacitance and bitline load capacitance, which increase (2) and (3). From Figure~\ref{fig:metrics}(b) we can see that STT-RAM with in-plane MTJ is slightly slower than SRAM mainly because sensing the state of STT-RAM cell takes longer than that of SRAM. However, read operation of STT-RAM with PMTJ can be faster than SRAM for $\tau > 0.8ns$ due to more remarkable area advantage.
+\item Read energy: it's affected in the similar way that read latency is affected. From Figure~\ref{fig:metrics}(c) we can see that the read energy of STT-RAM with in-plane MTJ is comparable to that of SRAM while PMTJ improves STT-RAM read energy significantly thus it's better than SRAM.
+\item Write latency: the write timing can be approximately divided into four components: (1) H-tree input latency; (2) Decoder + wordline delay; (3) Write pulse width. (1) and (2) both increase as (3) decreases therefore "sweet spots" may exist, which is approved by Figure~\ref{fig:metrics}(d). The write latency of STT-RAM with in-plane MTJ can no longer be improved when $\tau < 3ns$. While the minimum write latency STT-RAM with PMTJ is achieved at $\tau = 0.8ns$ and the latency value is comparable to SRAM.
+\item Write energy: it consists of two parts: the energy of cell switching and the energy of the circuitry most of which is shared with read operation. When reducing write pulse width from $10ns$ to $\tau_{min\_cell\_energy}$, cell switching energy decreases while the other energy goes up in the same manner with read energy. Later we'll show that the optimal write pulse width $\tau_{min\_energy}$ for minimum write energy is dependent on MTJ spec, STT-RAM capacity and I/O width. We can see from Figure~\ref{fig:metrics}(e) that $\tau_{min\_energy} = 5ns$ for 32-bit 2MB STT-RAM with in-plane MTJ and $\tau_{min\_energy}= 7ns$ for 32-bit 2MB STT-RAM with PMTJ. Moreover, the minimum write energy of STT-RAM with in-plane MTJ is roughly 50\% more than that of SRAM while the energy of STT-RAM with PMTJ is almost half the number of SRAM.
+\item Leakage power: leakage power is basically proportional to the sizing of transistor contributing the leakage current. Thus it increases as the area of peripheral circuity increasesl because the leakage power for STT-RAM mainly comes from peripheral circuity. Figure~\ref{fig:metrics}(f) we can tell the remarkable advantage of STT-RAM over SRAM no matter what type of MTJ spec is used.
+\end{itemize}
+
 
 \begin{figure*}[t]
   \centering
@@ -65,8 +67,8 @@ It is also observed that optimal setting of write time for STT-RAM is function o
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=3in]{fig/MinEnergy.eps}
-  \caption{Dependence of $\tau_{min\_energy}$ on STT-RAM Macro Capacity.}
+  \includegraphics[width=3.5in]{fig/MinEnergy.eps}
+  \caption{Dependence of $\tau_{min\_energy}$ on (a) STT-RAM Macro Capacity, and (b) I/O Width}
   \label{fig:minenergy}
 \end{figure}
 
