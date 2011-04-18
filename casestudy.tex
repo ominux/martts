@@ -1,7 +1,9 @@
 \section{Case Study} \label{sec:case}
-
+In this section we will conduct one case study to demonstrate how the device-architecture co-optimization methodology can help design STT-RAM cache with different optimization directions. We will replace the L1 SRAM instruction cache and data cache by there different STT-RAM caches: latency-optimized STT-RAM, energy-optimized STT-RAM, or EDP-optimized STT-RAM. We are the first to explore design space of STT-RAM utilizing PMTJ as L1 cache replacement and compare the results with The optimization techniques are the same with those used in Section~\ref{subsec:co-opt}.
 
 \subsection{Experimental Setup}
+
+DIMIN, PUT YOUR STUFF HERE.
 
 \begin{table}[t]
 \centering
@@ -39,7 +41,7 @@ Benchmark & MiBench \\
 \includegraphics[width=0.4\textwidth]{fig/IPC}
 \vspace{-10pt}
 \caption{Normalized IPC for STT-RAM with different optimization directions.}
-\label{fig:pic}
+\label{fig:ipc}
 \vspace{7pt}
 \includegraphics[width=0.4\textwidth]{fig/Energy}
 \vspace{-10pt}
@@ -51,13 +53,15 @@ Benchmark & MiBench \\
 \caption{Normalized EDP for STT-RAM with different optimization directions.}
 \label{fig:edp}
 \vspace{-10pt}
-\end{figure} 
+\end{figure}
 
 \begin{figure}[t]
   \centering
   \includegraphics[width=2.8in]{fig/RWratio.eps}
-  \vspace{-10pt}
+%  \vspace{-10pt}
   \caption{Read-write ratio for different benchmarks.}
   \label{fig:ratio}
 \vspace{-15pt}
-\end{figure}
+\end{figure} 
+
+We normalize instruction per cycle (IPC), energy and EDP to SRAM-based cache. Note that energy here includes read dynamic energy, write dynamic energy and leakage energy. Figure~\ref{fig:ipc} shows the simulations results in terms of normalized IPC when using the three different STT-RAM caches. Figure~\ref{fig:energy} presents the energy saving percentage of replacing SRAM by these STT-RAM caches. Figure~\ref{fig:edp} illustrates the EDP value of STT-RAM caches for different benchmarks. We can see that the latency-optimized STT-RAM has almost 50\% better IPC than SRAM, while it has negative energy saving compared to SRAM. Energy-optimized STT-RAM has approximately 60\% average energy saving compared to SRAM while maintaining only 8\% degraded IPC of SRAM. EDP-optimized STT-RAM has about 20\% better IPC than SRAM and also nearly 40\% energy saving compared to SRAM. Figure~\ref{fig:ratio} shows the variation in read/write statistics for different benchmarks. 
