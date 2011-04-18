@@ -23,7 +23,7 @@ Optimization target & in-plane MTJ & PMJT\\
 \hline
 Write pulse width operating range & $2ns-10ns$ & $0.4ns-10ns$\\
 \hline
-$\tau_{min\_cell\_energy}$ & $1.8ns$ & $1.5ns$\\
+$\tau_{min\_cell\_energy}$ & $1.3ns$ & $1.8ns$\\
 \hline
 TMR & \multicolumn{2}{c}{$120\%$}\\
 \hline
@@ -47,7 +47,7 @@ NVsim simulation results of 2$MB$ STT-RAM macros with in-plane MTJ and PMTJ sepa
 \item Read latency: the read timing can be approximately divided into four components: (1) H-tree input/output delay; (2) Decoder + wordline delay; (3) Bitline delay; (4) Sense amplifier delay. (1) is affected because larger area essentially means longer routing distance and interconnection RC delay. Moreover, the increased gate and drain capacitance of larger access transistor will contribute to wordline capacitance and bitline load capacitance, which increase (2) and (3). From Figure~\ref{fig:metrics}(b) we can see that STT-RAM with in-plane MTJ is slightly slower than SRAM mainly because sensing the state of STT-RAM cell takes longer than that of SRAM. However, read operation of STT-RAM with PMTJ can be faster than SRAM for $\tau > 0.8ns$ due to more remarkable area advantage.
 \item Read energy: it's affected in the similar way that read latency is affected. From Figure~\ref{fig:metrics}(c) we can see that the read energy of STT-RAM with in-plane MTJ is comparable to that of SRAM while PMTJ improves STT-RAM read energy significantly thus it's better than SRAM.
 \item Write latency: the write timing can be approximately divided into four components: (1) H-tree input latency; (2) Decoder + wordline delay; (3) Write pulse width. (1) and (2) both increase as (3) decreases therefore "sweet spots" may exist, which is approved by Figure~\ref{fig:metrics}(d). The write latency of STT-RAM with in-plane MTJ can no longer be improved when $\tau < 3ns$. While the minimum write latency STT-RAM with PMTJ is achieved at $\tau = 0.8ns$ and the latency value is comparable to SRAM.
-\item Write energy: it consists of two parts: the energy of cell switching and the energy of the circuitry most of which is shared with read operation. When reducing write pulse width from $10ns$ to $\tau_{min\_cell\_energy}$, cell switching energy decreases while the other energy goes up in the same manner with read energy. Later we'll show that the optimal write pulse width $\tau_{min\_energy}$ for minimum write energy is dependent on MTJ spec, STT-RAM capacity and I/O width. We can see from Figure~\ref{fig:metrics}(e) that $\tau_{min\_energy} = 5ns$ for 32-bit 2MB STT-RAM with in-plane MTJ and $\tau_{min\_energy}= 7ns$ for 32-bit 2MB STT-RAM with PMTJ. Moreover, the minimum write energy of STT-RAM with in-plane MTJ is roughly 50\% more than that of SRAM while the energy of STT-RAM with PMTJ is almost half the number of SRAM.
+\item Write energy: it consists of two parts: the energy of cell switching (cell energy) and the energy of the circuitry (peripheral energy) most of which is shared with read operation. When reducing write pulse width from $10ns$ to $\tau_{min\_cell\_energy}$, cell energy decreases while peripheral energy goes up in the same manner with read energy. Later we'll show that the optimal write pulse width $\tau_{min\_energy}$ for minimum write energy is dependent on MTJ spec, STT-RAM capacity and I/O width. We can see from Figure~\ref{fig:metrics}(e) that $\tau_{min\_energy} = 5ns$ for 32-bit 2MB STT-RAM with in-plane MTJ and $\tau_{min\_energy}= 7ns$ for 32-bit 2MB STT-RAM with PMTJ. Moreover, the minimum write energy of STT-RAM with in-plane MTJ is roughly 50\% more than that of SRAM while the energy of STT-RAM with PMTJ is almost half the number of SRAM.
 \item Leakage power: leakage power is basically proportional to the sizing of transistor contributing the leakage current. Thus it increases as the area of peripheral circuity increasesl because the leakage power for STT-RAM mainly comes from peripheral circuity. Figure~\ref{fig:metrics}(f) we can tell the remarkable advantage of STT-RAM over SRAM no matter what type of MTJ spec is used.
 \end{itemize}
 
@@ -60,10 +60,7 @@ NVsim simulation results of 2$MB$ STT-RAM macros with in-plane MTJ and PMTJ sepa
 \end{figure*}
 
 \subsection{Write Energy Optimization}
-
-\begin{comment}
-It is also observed that optimal setting of write time for STT-RAM is function of capacity. Given a fixed word length, the proportion of dynamic energy consumption on memory cells decreases as capacity increases. Energy on peripheral circuitry begins to decimate at large memory capacity. Thus the energy consumption on memory cells and peripheral circuitry goes in opposite directions and the optimal write pulse width increase with capacity increase.
-\end{comment}
+In previous section we note that $\tau_{min\_energy}$ is different for STT-RAM with in-plane MTJ and PMTJ. Thus we did more study on the determining factors and found out $\tau_{min\_energy}$ depends on MTJ spec, STT-RAM capacity and I/O width. From the results shown in Figure~\ref{fig:minenergy}, we observed that: (1) The optimal write pulse width $\tau_{min\_energy}$ for STT-RAM with in-plane MTJ is smaller than that of STT-RAM with PMTJ under the same capacity and I/O Width; (2) $\tau_{min\_energy}$ is a monotonic increasing function of STT-RAM capacity under fixed I/O width (32bits); (3) $\tau_{min\_energy}$ is a monotonic decreasing function of I/O width under fixed capacity (2MB). There are primary two reasons for (1): the baseline $\tau_{min\_cell\_energy}$ of in-plane MTJ than that of PMTJ; proportion of cell energy in PMTJ is much smaller and peripheral energy has more weights on minimizing total energy. (2) is because the proportion of cell energy decreases as capacity increases and peripheral energy begins to decimate at large memory capacity. (3) is due to the similar reason. The conclusions can be viewed as design implications of MTJ device, that is, minimize the cell switching energy at $\tau_{min\_cell\_energy}$ from cell-level may not enough, while it's more important to reduce to cell switching energy at $\tau_{min\_energy}$ for particular capacity and I/O width from system-level point of view.
 
 \begin{figure}[t]
   \centering
@@ -73,6 +70,7 @@ It is also observed that optimal setting of write time for STT-RAM is function o
 \end{figure}
 
 \subsection{Device-Architecture Co-Optimization}
+Finally we combine 
 
 \begin{table*}[t]
 %\vspace{-5pt}
@@ -88,7 +86,7 @@ Area ($mm^2$) & \textbf{3.06} & 10.7 & 16.4 & 5.66 & 6.22 & 3.63 \\
 \hline
 Read latency ($ns$) & 21.8 & \textbf{3.70} & 4.92 & 9.12 & 9.57 &	9.91 \\
 \hline
-Write latency ($ns$) & 18.6	& 13.9	& \textbf{4.0}1	& 15.9	& 12.3	& 18.1 \\
+Write latency ($ns$) & 18.6	& 13.9	& \textbf{4.01}	& 15.9	& 12.3	& 18.1 \\
 \hline
 Read energy ($nJ$) & 0.276	& 0.225	& 0.316	& \textbf{0.105}	& 0.139	& 0.279 \\
 \hline
