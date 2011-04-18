@@ -12,15 +12,19 @@ where $I_{BS}(W_{BS})$ is the current from BL to SL with transistor width $W_{BS
 \begin{figure}[t]
   \centering
   \includegraphics[width=2.5in]{fig/1t1r.eps}
+  \vspace{-10pt}
   \caption{Conceptual view of a MOS-accessed cell (1T1J) and its connected word line, bit line, and source line.}
   \label{fig:1t1r}
+  \vspace{-5pt}
 \end{figure}
 
 \begin{figure}[t]
   \centering
   \includegraphics[width=3.5in]{fig/HSPICE.eps}
+%  \vspace{-10pt}
   \caption{(a) Driving ability, and (b) Cell TMR of access NMOS transistor.}
   \label{fig:hspice}
+  \vspace{-15pt}
 \end{figure}
 
 The relationship between access transistor width and CTMR defined in Section~\ref{subsec:cell} was also simulated. As can be seen in Figure~{fig:hspice}(b), a larger access transistor increase CTRM closer to the inherent TRM value of MTJ. It's necessary to set a lower bound $CTMR_{min}$ for CTMR to guarantee the correctness of read operation. Thus the transistor width must be large enough to satisfy the minimum CTMR requirement,
@@ -49,7 +53,9 @@ in which the resistance value $R$ can be the equivalent resistance of the corres
 \begin{figure}[t]
   \centering
   \includegraphics[width=2.5in]{fig/cellenergy.eps}
+  \vspace{-10pt}
   \caption{Switching energy per cell versus write pulse width.}
   \label{fig:cellenergy}
+%  \vspace{-15pt}
 \end{figure}
 
