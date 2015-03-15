@@ -1,0 +1,1 @@
+We have devise a full system design diagram of the computer system in the future
